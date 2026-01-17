@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h2>Registro de alumnos</h2>
+
+<input id="nombre" placeholder="Escribe tu nombre">
+<button onclick="enviar()">Guardar</button>
+
+<pre id="resultado"></pre>
+
+<script>
+function enviar(){
+    let datos = new FormData();
+    datos.append("nombre", document.getElementById("nombre").value);
+
+    //aca se cambia por la ip de la pc que tiene el servidor
+    fetch("http://localhost/guardar.php", {
+        method: "POST",
+        body: datos
+    })
+    .then(r => r.json())
+    .then(data => {
+        document.getElementById("resultado").textContent = JSON.stringify(data, null, 2);
+    });
+}
+</script>
+</body>
+</html>
